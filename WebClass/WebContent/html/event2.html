@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script>
+   function changeColor(color) {
+      var c = document.getElementById("container");
+      c.style.backgroundColor = color;
+   }
+   function toUpperCase(e) {
+      //var w = document.getElementById("word");
+      e.value = e.value.toUpperCase();
+   }
+   function addBorder(e) {
+      //var b = document.getElementById("box");
+      e.style.border = "3px solid red";
+   }
+   function removeBorder(e) {
+      //var b = document.getElementById("box");
+      e.style.border = "";
+   }
+</script>
+</head>
+<body onload="alert('웹페이지 로딩됨');">
+   <div id="container">
+      <input type="radio" name="color" onclick="changeColor('yellow');">노란색
+      <input type="radio" name="color" onclick="changeColor('blue');">빨간색
+      <input type="radio" name="color" onclick="changeColor('white');"
+         checked>원래대로색(?) <br> <input type="text" id="word"
+         onchange="toUpperCase(this);"> <br>
+      <div id="box" onmouseover="addBorder(this);" onmouseout="removeBorder(this)">
+         no time left to spend</div>
+   </div>
+</body>
+</html>
