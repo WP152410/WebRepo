@@ -54,7 +54,7 @@ function menu_out(e) {
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
     </form>
       <a class="nav-link" href="signin.html">SignIn</a>
-    	<% } else if("baesh@naver.com".equals(user.getId())) {%>	
+    	<% } else if("test@naver.com".equals(user.getId())) {%>	
     <%-- 세션이 있는 경우 --%>
 	    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 	    <li class="nav-item dropdown">
