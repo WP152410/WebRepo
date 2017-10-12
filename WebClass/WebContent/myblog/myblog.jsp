@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Home</title>
+<title>MyBlog</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 <link rel="stylesheet" href="/WebClass/css/footer.css">
 <style>
@@ -27,8 +27,15 @@ function menu_out(e) {
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Home</a>
+<%
+	String id = request.getParameter("id");
+	String pwd = request.getParameter("pwd");
+	String name = request.getParameter("name");
+	String nickname = request.getParameter("nickname");
+	%>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/WebClass/myblog/myblog.jsp">MyBlog</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -41,10 +48,13 @@ function menu_out(e) {
     	UserVO user = (UserVO)session.getAttribute("user");
    		if(user == null){ 
     %>
-    	<a class="text-bold text-white" style="text-decoration: none" href="/WebClass/login">Sign in</a>
-    	<span class="text-bold text-white">&nbsp; or &nbsp;</span>
-    	<a class="text-bold text-white" style="text-decoration: none" href="/WebClass/signup">Sign up</a>
-    	<% } else{%>	
+    	<form id="signupForm" class="form-signin" action="/WebClass/bloglogin" method="post" style="display: flex;">
+      <input type="email" name="id" id="id" class="form-control" placeholder="id" required autofocus>
+      <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="pwd" required>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+    </form>
+      <a class="nav-link" href="signin.html">SignIn</a>
+    	<% } else if("baesh@naver.com".equals(user.getId())) {%>	
     <%-- 세션이 있는 경우 --%>
 	    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 	    <li class="nav-item dropdown">
@@ -52,7 +62,7 @@ function menu_out(e) {
 	    	<%=user.getName() + "님"%>
 	      </a>
 	      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-	      	<form action = "/WebClass/logout" method="post">
+	      	<form action = "/WebClass/bloglogout" method="post">
 	      	<button type="submit" class="dropdown-item">Sign out</button>
 	      	</form>
 	       	<div class="dropdown-divider"></div>
@@ -62,15 +72,23 @@ function menu_out(e) {
 	    </li>
 	    </ul>
 
-	    <%} %>
+	    <%}else{ %>
+	    <form id="signupForm" class="form-signin" action="/WebClass/bloglogin" method="post"  style="display: flex;">
+      <input type="email" name="id" id="id" class="form-control" placeholder="id" value = <%=user.getId() %> required autofocus>
+      <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="pwd" value = <%=pwd %> required>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+    </form>
+      <a class="nav-link" href="/WebClass/myblog/signin.html">SignIn</a>
+	    <% }%>
   </div>
 </nav>
-<div class="container">
-<h1>Hello, Bootstrap</h1>
-<p>
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
-</p>
-</div>
+<div class = "container">
+    <h1>BAESH</h1>
+	<p>뭔가 할일없어보이는 수학충 배성현의 블로그입니다</p>
+	
+	 <img src="/WebClass/image/math2.jpg" alt="math" class="img-thumbnail">
+	 <a href="sigong.html">click here</a>
+	</div>
 
 <%@ include file="footer.jsp" %>
 
@@ -78,6 +96,19 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-
+<%@ include file="modal.jsp" %>
+<script>
+	<% 
+	if("error".equals((String)request.getAttribute("msg"))){ 
+		System.out.println("Checked!!!!!");
+	%>
+		var myModal = $('#myModal');
+		myModal.find('.modal-title').text('Login Error');
+		myModal.find('.modal-body').text('로그인시 오류가 발생하였습니다.');
+		myModal.modal();
+	<% } %>
+	
+	
+</script>
 </body>
 </html>
